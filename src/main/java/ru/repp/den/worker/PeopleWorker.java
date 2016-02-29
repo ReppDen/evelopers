@@ -22,21 +22,19 @@ public class PeopleWorker implements  Callable<List<People>> {
 
     private static final String CSV_DELIMETER = ",";
 
+    private final String fileName = "data.txt";
+
     private static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
     private final Month month;
-    private final String fileName;
 
-    public PeopleWorker(Month m, String fileName) {
+    public PeopleWorker(Month m) {
         this.month = m;
-        this.fileName = fileName;
     }
 
     @Override
     public List<People> call() throws Exception {
-
         List<People> res = new ArrayList<>();
-        Path p = Paths.get(fileName);
+        Path p = Paths.get(this.getClass().getResource(fileName).toURI());
         Files.lines(p).forEach(s -> {
             String[] parts = s.split(CSV_DELIMETER);
             try {

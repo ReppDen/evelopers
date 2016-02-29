@@ -23,9 +23,6 @@ public class PeopleServiceImpl implements PeopleService {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(PeopleServiceImpl.class);
 
-    @Value("${evelopers.file.name}")
-    String fileName;
-
     @Autowired
     ExecutorService executorService;
 
@@ -43,7 +40,7 @@ public class PeopleServiceImpl implements PeopleService {
             LOGGER.error(message);
             throw new BadRequestException(message);
         }
-        Future<List<People>> future = executorService.submit(new PeopleWorker(Month.of(monthNumber), fileName));
+        Future<List<People>> future = executorService.submit(new PeopleWorker(Month.of(monthNumber)));
         String key = futureRegistry.putAndGetKey(future);
         LOGGER.info("Key of processing of the request for month {} is {}", monthNumber, key);
         return key;
