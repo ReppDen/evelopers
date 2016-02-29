@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
+        <file>log.log</file>
+        <encoder>
+            <Pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <logger name="ru.repp.den" level="debug"/>
+    <root level="info">
+        <appender-ref ref="file" />
+    </root>
+
+</configuration>

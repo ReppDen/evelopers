@@ -1,8 +1,9 @@
 package ru.repp.den.worker;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.repp.den.dto.People;
 
-import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,7 +18,11 @@ import java.util.stream.Stream;
 
 public class PeopleWorker implements  Callable<List<People>> {
 
-    public static final String CSV_DELIMETER = ",";
+    public static final Logger LOGGER = LoggerFactory.getLogger(PeopleWorker.class);
+
+    private static final String CSV_DELIMETER = ",";
+
+    private static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private final Month month;
     private final String fileName;
@@ -29,18 +34,18 @@ public class PeopleWorker implements  Callable<List<People>> {
 
     @Override
     public List<People> call() throws Exception {
+
         List<People> res = new ArrayList<>();
         Path p = Paths.get(fileName);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         Files.lines(p).forEach(s -> {
             String[] parts = s.split(CSV_DELIMETER);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.error("Something went wrong while thread slept",e);
             }
             List<String> values = Stream.of(parts).map(String::trim).collect(Collectors.toList());
-            LocalDate d = LocalDate.parse(values.get(1), formatter);
+            LocalDate d = LocalDate.parse(values.get(1), FORMATTER);
             if (month.getValue() == d.getMonthValue()) {
                 // correct month, save it
                 res.add(new People(values.get(0), d));
