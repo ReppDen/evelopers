@@ -5,7 +5,7 @@ Date of implementation: Feb 2016
 
 Description:
 - [Russian](Russian.txt)
-- English (coming soon)
+- [English](English.txt)
 
 What you can find in this app:
 +  Spiring boot
