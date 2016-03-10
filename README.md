@@ -8,7 +8,7 @@ Description:
 - [English](English.txt)
 
 What you can find in this app:
-+  Spiring boot
++  Spring boot
 +  A little java concurrency
 +  Java 8
 +  RESTful application
@@ -26,6 +26,6 @@ How to run:
 
 REST end points are:
 + Post new task for execution
-POST /request/ payload="%MONTH%" Content-Type: application/json
+POST /request/ request body="%MONTH%" Content-Type: application/json
 + get the results of a task by key
 GET /request/{key}
