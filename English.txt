@@ -1,0 +1,15 @@
+Create a simple web application, which will execute a long time execution REST request
+
+Initial data - a text file with the list of names and birthdates (in a suitable for the developer format).
+REST service should receive one optional parameter - month number (from 1 to 12) and should return the list of names, that has a birthday in this month.
+If the parameter is not set - the current month should be used.
+The response should be in JSON format. The service should emulate the a long time execution request (1-2 min for processing).
+
+The service should have two end points:
+1. a REST end point to set the tasks for execution. This one receives an optional parameter (month number) and should return a process ID.
+2. a REST end point to receive a results of processing. This one receives a process ID as an input parameter. And return the results if it is ready or service should return a message that task is in progress if the execution is not finished.
+
+The application should be built in Spring framework. The logging framework should be used.
+Use an assembly tool. The application should be able to run in any JEE container.
+
+You may use any library you want. Java version: 7 (8 is preferable).
